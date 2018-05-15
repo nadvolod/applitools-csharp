@@ -29,17 +29,22 @@ namespace Applitools
         [Test]
         public void SetBaseline()
         {
-            Eyes.Open(Driver, "Small Landing Page", "TC1", new System.Drawing.Size(1024,768));
+            VisualCheckpoint1();
+        }
+
+        private void VisualCheckpoint1()
+        {
+            Eyes.Open(Driver, "Small Landing Page", "TC1", new System.Drawing.Size(1024, 768));
             Eyes.CheckWindow();
         }
+
         [Test]
         public void TestBaseline()
         {
             var element = Driver.FindElement(By.XPath("//h1"));
             Driver.ExecuteScript(
                 "document.getElementsByTagName('h1')[0].innerText = \"1000's of Courses\";", element);
-            Eyes.Open(Driver, "Small Landing Page", "TC1", new System.Drawing.Size(1024,768));
-            Eyes.CheckWindow();
+            VisualCheckpoint1();
         }
         [TearDown]
         public void TearDownForEverySingleTestMethod()
