@@ -18,8 +18,11 @@ namespace Applitools
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             Eyes = new Eyes
             {
+                //This sets the Applitools API key so that you can access the account
+                //ApiKey = "vDPsWHm9wt7dIAvfQRH79HF105is4Lhc9710rH1xW7BUl0146";
                 ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_API_KEY",
                 EnvironmentVariableTarget.User)
+
             };
             Driver.Navigate().GoToUrl("https://www.ultimateqa.com/fake-landing-page/");
         }
