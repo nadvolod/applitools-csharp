@@ -48,7 +48,7 @@ namespace Applitools
         public void TestBaseline()
         {
             //Use Selenium to locate the first h1 element in the HTML
-            var element = Driver.FindElementByXPath("//h1");
+            var element = Driver.FindElement(By.XPath("//h1"));
             //Use Javascript to update the text of the element above so that
             //we can fake a common visual error in the web page
             UpdateElementInnerText(element);
@@ -57,7 +57,8 @@ namespace Applitools
 
         private void UpdateElementInnerText(IWebElement element)
         {
-            Driver.ExecuteScript(
+            var javascript = Driver as IJavaScriptExecutor;
+            javascript.ExecuteScript(
                             "document.getElementsByTagName('h1')[0].innerText = \"1000's of Courses\";", element);
         }
 
