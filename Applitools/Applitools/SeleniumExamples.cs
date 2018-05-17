@@ -61,12 +61,5 @@ namespace Applitools
             javascript.ExecuteScript(
                             "document.getElementsByTagName('h1')[0].innerText = \"1000's of Courses\";", element);
         }
-
-        [TearDown]
-        public void TearDownForEverySingleTestMethod()
-        {
-            Driver.Quit();
-            Eyes.AbortIfNotClosed();
-        }
     }
 }
