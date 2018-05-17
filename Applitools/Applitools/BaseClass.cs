@@ -1,6 +1,8 @@
-﻿using Applitools.Selenium;
+﻿using System;
+using Applitools.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 namespace Applitools
 {
@@ -13,15 +15,33 @@ namespace Applitools
             //This uses Selenium to navigate to a url of the page below
             Driver.Navigate().GoToUrl("https://www.ultimateqa.com/fake-landing-page-small/");
         }
+        [SetUp]
+        public void SetupForEverySingleTestMethod()
+        {
+            //create a new chrome driver
+            Driver = new ChromeDriver();
+            //set an implicit wait for Selenium so that if it doesn't find an element, it will keep trying for specified amount of time
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            Eyes = new Eyes
+            {
+                /*This sets the Applitools API key in an environmental variable
+                 * conversely, you can also set the key like this
+                 * ApiKey = "vDPsWHm9wt7dIAvfQRH79HF105is4Lhc9710rH1xW7BUl0146";
+                 */
+                ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_API_KEY",
+                    EnvironmentVariableTarget.User)
 
+            };
+        
+        }
         //This is an NUnit attribute that forces the method below to be executed after every single test execution.
         [TearDown]
         public void TearDownForEverySingleTestMethod()
         {
-            //Close applitools eyes so that your test run is saved
-            Eyes.Close();
             //Close your Selenium browser
             Driver.Quit();
+            //Close applitools eyes so that your test run is saved
+            Eyes.Close();
             //Quit applitools if it is not already closed
             Eyes.AbortIfNotClosed();
         }
