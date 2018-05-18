@@ -7,6 +7,7 @@ using System;
 namespace Applitools
 {
     [TestFixture]
+    [Category("GetStarted10Minutes")]
     public class TenMinuteDemo
     {
         public ChromeDriver Driver { get; private set; }

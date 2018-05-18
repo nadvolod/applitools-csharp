@@ -13,12 +13,12 @@ namespace Applitools
         [Test]
         public void SetBaseline()
         {
+            GoToSmallPage();
             VisualCheckpoint1();
         }
 
         private void VisualCheckpoint1()
         {
-            GoToSmallPage();
             //Here we are initializing the test in Applitools and passing in 4 parameters
             // the IWebDriver, application name, test name, viewport size to open our app in
             Eyes.Open(Driver, "Small Landing Page", "TC1", new System.Drawing.Size(1024, 768));
@@ -30,19 +30,21 @@ namespace Applitools
         public void TestBaseline()
         {
             GoToSmallPage();
-            //Use Selenium to locate the first h1 element in the HTML
-            var element = Driver.FindElement(By.XPath("//h1"));
             //Use Javascript to update the text of the element above so that
             //we can fake a common visual error in the web page
-            UpdateElementInnerText(element);
+            UpdateElementInnerText();
             VisualCheckpoint1();
         }
 
-        private void UpdateElementInnerText(IWebElement element)
+        private void UpdateElementInnerText()
         {
             var javascript = Driver as IJavaScriptExecutor;
             javascript.ExecuteScript(
-                            "document.getElementsByTagName('h1')[0].innerText = \"1000's of Courses\";", element);
+                            "document.getElementsByTagName('h1')[1].innerText = \"Pick a plan that Works for Your Business Model\";");
+            javascript.ExecuteScript(
+                "document.getElementsByClassName('et_pb_sum')[0].innerText = \"$0.99\";");
+            javascript.ExecuteScript(
+                "document.getElementsByClassName('et_pb_sum')[2].innerText = \"USD 900\";");
         }
     }
 }
