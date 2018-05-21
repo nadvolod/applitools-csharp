@@ -3,6 +3,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.Drawing;
 
 namespace Applitools
 {
@@ -13,15 +14,15 @@ namespace Applitools
         [Test]
         public void SetBaseline()
         {
-            GoToSmallPage();
-            VisualCheckpoint1();
+            GoToPricingPage();
+            VisualCheckpoint();
         }
 
-        private void VisualCheckpoint1()
+        private void VisualCheckpoint()
         {
             //Here we are initializing the test in Applitools and passing in 4 parameters
             // the IWebDriver, application name, test name, viewport size to open our app in
-            Eyes.Open(Driver, "Small Landing Page", "TC1", new System.Drawing.Size(1024, 768));
+            Eyes.Open(Driver, "Small Landing Page", "TC1", new Size(1910, 1079));
             //Use the Applitools algorithm to check the whole page for visual validity
             Eyes.CheckWindow();
         }
@@ -29,22 +30,22 @@ namespace Applitools
         [Test]
         public void TestBaseline()
         {
-            GoToSmallPage();
+            GoToPricingPage();
             //Use Javascript to update the text of the element above so that
             //we can fake a common visual error in the web page
-            UpdateElementInnerText();
-            VisualCheckpoint1();
+            UpdateElements();
+            VisualCheckpoint();
         }
 
-        private void UpdateElementInnerText()
+        private void UpdateElements()
         {
             var javascript = Driver as IJavaScriptExecutor;
             javascript.ExecuteScript(
-                            "document.getElementsByTagName('h1')[1].innerText = \"Pick a plan that Works for Your Business Model\";");
+                "document.getElementsByClassName('et_pb_sum')[0].innerText = \"€0\";");
             javascript.ExecuteScript(
-                "document.getElementsByClassName('et_pb_sum')[0].innerText = \"$0.99\";");
+                "document.getElementsByClassName('et_pb_sum')[1].innerText = \"€80\";");
             javascript.ExecuteScript(
-                "document.getElementsByClassName('et_pb_sum')[2].innerText = \"USD 900\";");
+                "document.getElementsByClassName('et_pb_sum')[2].innerText = \"€900\";");
         }
     }
 }

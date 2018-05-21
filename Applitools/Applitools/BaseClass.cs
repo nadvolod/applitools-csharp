@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Applitools.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -10,10 +11,12 @@ namespace Applitools
     {
         public IWebDriver Driver { get; set; }
         public Eyes Eyes { get; set; }
-        public void GoToSmallPage()
+        public Size Resolution720P => new Size(1280, 720);
+        public Size Resolution1080P => new Size(1920, 1080);
+        public void GoToPricingPage()
         {
             //This uses Selenium to navigate to a url of the page below
-            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/fake-landing-page-small/");
+            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/fake-pricing-page/");
         }
         [SetUp]
         public void SetupForEverySingleTestMethod()

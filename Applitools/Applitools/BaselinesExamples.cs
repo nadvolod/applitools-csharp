@@ -14,13 +14,14 @@ namespace Applitools
 
         public string TestCaseName => "Test1";
 
-        public Size Resolution720P => new Size(1280, 720);
+
+
 
         //Here we are going to set a new baseline when we use Eyes.Open()
         [Test]
         public void SetBaselineUsingAppName()
         {
-            GoToSmallPage();
+            GoToPricingPage();
             //Here we are initializing the test in Applitools and passing in 4 parameters
             // the IWebDriver, application name, test name, viewport size to open our app in
             Eyes.Open(Driver, AppName, TestCaseName, Resolution720P);
@@ -31,7 +32,7 @@ namespace Applitools
         [Test]
         public void SetBaselineUsingTestName()
         {
-            GoToSmallPage();
+            GoToPricingPage();
             //all the parameters are the same, except we provided a new test name
             Eyes.Open(Driver, AppName, "new test name", Resolution720P);
             Eyes.CheckWindow();
@@ -40,7 +41,7 @@ namespace Applitools
         [Test]
         public void SetBaselineUsingViewportSize()
         {
-            GoToSmallPage();
+            GoToPricingPage();
             //all the parameters are the same, except we provided a new viewport size
             Eyes.Open(Driver, AppName, TestCaseName, new Size(1920, 1080));
             Eyes.CheckWindow();
