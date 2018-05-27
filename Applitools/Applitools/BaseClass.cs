@@ -18,6 +18,11 @@ namespace Applitools
             //This uses Selenium to navigate to a url of the page below
             Driver.Navigate().GoToUrl("https://www.ultimateqa.com/fake-pricing-page/");
         }
+        public void GoToPricingPageWithCurrencyUpdate()
+        {
+            //This uses Selenium to navigate to a url of the page below
+            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/fake-pricing-page-currency/");
+        }
         [SetUp]
         public void SetupForEverySingleTestMethod()
         {

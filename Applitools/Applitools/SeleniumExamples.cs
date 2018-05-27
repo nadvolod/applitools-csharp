@@ -31,8 +31,6 @@ namespace Applitools
         public void TestBaseline()
         {
             GoToPricingPage();
-            //Use Javascript to update the text of the element above so that
-            //we can fake a common visual error in the web page
             UpdateElements();
             VisualCheckpoint();
         }

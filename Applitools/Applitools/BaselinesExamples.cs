@@ -13,10 +13,6 @@ namespace Applitools
         private const string AppName = "sample app 1";
 
         public string TestCaseName => "Test1";
-
-
-
-
         //Here we are going to set a new baseline when we use Eyes.Open()
         [Test]
         public void SetBaselineUsingAppName()
