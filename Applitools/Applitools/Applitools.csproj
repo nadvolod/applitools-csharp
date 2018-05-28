@@ -77,7 +77,6 @@
   <ItemGroup>
     <Compile Include="BaseClass.cs" />
     <Compile Include="BaselinesExamples.cs" />
-    <Compile Include="SeleniumExamples.cs" />
     <Compile Include="TenMinuteDemo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
