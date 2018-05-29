@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseClass.cs" />
+    <Compile Include="BaselineModifications.cs" />
     <Compile Include="BaselinesExamples.cs" />
     <Compile Include="TenMinuteDemo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
