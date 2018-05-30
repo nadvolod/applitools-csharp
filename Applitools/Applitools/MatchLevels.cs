@@ -21,16 +21,23 @@ namespace Applitools
             Eyes.Open(Driver, AppName, TestCaseName, Resolution1080P);
             Eyes.CheckWindow("MatchLevel.Content");
         }
+        [Test]
+        public void LayoutMatchLevel()
+        {
+            Eyes.MatchLevel = MatchLevel.Layout;
+            GoToPricingPage();
+            ChangeToEuroAndUpdateColor();
+            Eyes.Open(Driver, AppName, TestCaseName, Resolution1080P);
+            Eyes.CheckWindow("MatchLevel.Content");
+        }
         private void ChangeToEuroAndUpdateColor()
         {
-            //Create an object that can execute javascript commands
-            var javascript = Driver as IJavaScriptExecutor;
             //take the first element with class name et_pb_sum and update the value to what's specified
-            javascript.ExecuteScript(
+            Javascript.ExecuteScript(
                 "document.getElementsByClassName('et_pb_sum')[0].innerText = \"€0\";");
             var element = Driver.FindElement(
                 By.TagName("h1"));
-            javascript.ExecuteScript(
+            Javascript.ExecuteScript(
                 "arguments[0].setAttribute('style', 'color:#3d72e7!important')",element);
         }
     }

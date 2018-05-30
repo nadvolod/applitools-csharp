@@ -44,24 +44,21 @@ namespace Applitools
         {
             Eyes.ForceFullPageScreenshot = true;
             Eyes.StitchMode = StitchModes.CSS;
-            var javascript = Driver as IJavaScriptExecutor;
             GoToPricingPage();
             Eyes.Open(Driver, AppName, TestCaseName, Resolution1080P);
-            javascript.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+            Javascript.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
             Eyes.Check("CssStitching", Target.Window().Fully());
         }
         private void UpdateElements()
         {
-            //Create an object that can execute javascript commands
-            var javascript = Driver as IJavaScriptExecutor;
             //take the first element with class name et_pb_sum and update the value to what's specified
-            javascript.ExecuteScript(
+            Javascript.ExecuteScript(
                 "document.getElementsByClassName('et_pb_sum')[0].innerText = \"€0\";");
             //this does the same thing as the statement above,
             //but uses the 2nd element in the collection instead and updates it to a different value
-            javascript.ExecuteScript(
+            Javascript.ExecuteScript(
                 "document.getElementsByClassName('et_pb_sum')[1].innerText = \"€80\";");
-            javascript.ExecuteScript(
+            Javascript.ExecuteScript(
                 "document.getElementsByClassName('et_pb_sum')[2].innerText = \"€900\";");
         }
     }
