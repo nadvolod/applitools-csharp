@@ -11,8 +11,9 @@ namespace Applitools
     [Category("Examples of different baselines")]
     public class BaselinesExamples : BaseClass
     {
-        private const string AppName = "sample app 1";
-        public string TestCaseName => "Test1";
+        //These have been moved to BaseClass
+        //public const string AppName = "sample app 1";
+        //public string TestCaseName => "Test1";
         [Test]
         public void SetBaselineUsingAppName()
         {

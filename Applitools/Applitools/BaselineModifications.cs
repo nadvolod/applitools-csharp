@@ -12,8 +12,6 @@ namespace Applitools
     [Category("Examples of different baselines")]
     public class BaselineModifications : BaseClass
     {
-        private const string AppName = "sample app 1";
-        private string TestCaseName => "Test1";
         [Test]
         public void UseIgnoreRegions()
         {

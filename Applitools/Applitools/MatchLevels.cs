@@ -12,9 +12,6 @@ namespace Applitools
     [Category("MatchLevels")]
     public class MatchLevels : BaseClass
     {
-        private const string AppName = "sample app 1";
-        private string TestCaseName => "Test1";
-
         [Test]
         public void ContentMatchLevel()
         {

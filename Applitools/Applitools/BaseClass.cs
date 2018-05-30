@@ -13,6 +13,11 @@ namespace Applitools
         public Eyes Eyes { get; set; }
         public Size Resolution720P => new Size(1280, 720);
         public Size Resolution1080P => new Size(1920, 1080);
+        public const string AppName = "sample app 1";
+        public string TestCaseName => "Test1";
+
+        public IJavaScriptExecutor Javascript { get; set; }
+
         public void GoToPricingPage()
         {
             //This uses Selenium to navigate to a url of the page below
@@ -40,7 +45,8 @@ namespace Applitools
                     EnvironmentVariableTarget.User)
 
             };
-        
+            //Creating an object that can execute Javascript commands in the browser
+            Javascript = (IJavaScriptExecutor) Driver;
         }
         //This is an NUnit attribute that forces the method below to be executed after every single test execution.
         [TearDown]
