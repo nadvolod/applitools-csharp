@@ -1,9 +1,5 @@
-﻿using System;
-using System.Drawing;
-using Applitools.Selenium;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 
 namespace Applitools
 {
