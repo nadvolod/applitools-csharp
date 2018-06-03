@@ -8,22 +8,6 @@ namespace Applitools
     [Category("Examples of different baselines")]
     public class BaselineModifications : BaseClass
     {
-        [Test]
-        public void UseIgnoreRegions()
-        {
-            GoToPricingPage();
-            UpdateElements();
-            Eyes.Open(Driver, AppName, TestCaseName, Resolution1080P);
-            ////Ignoring with By
-            //Eyes.Check(TestCaseName, Target.Window().Ignore(
-            //    By.ClassName("et_pb_sum")));
-            ////Ignoring with FindElement()
-            //Eyes.Check(TestCaseName, Target.Window().
-            //    Ignore(Driver.FindElements(By.ClassName("et_pb_sum"))[1]));
-            Eyes.Check(TestCaseName, Target.Window().
-                Ignore(Driver.FindElement(By.ClassName("et_pb_sum")),
-                    Driver.FindElements(By.ClassName("et_pb_sum"))[1]));
-        }
 
         [Test]
         public void FullPageScreenshot()

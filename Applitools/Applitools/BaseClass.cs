@@ -15,18 +15,26 @@ namespace Applitools
         public Size Resolution1080P => new Size(1920, 1080);
         public const string AppName = "sample app 1";
         public string TestCaseName => "Test1";
+        public By PriceLocator => By.ClassName("et_pb_sum");
+        public By SubheaderLocator => By.XPath("//*[@class='et_pb_text_inner']/p");
+
+        public IWebElement SocialSharingToolbar => Driver.FindElement(
+            By.XPath("//*[@class='et_social_sidebar_networks et_social_visible_sidebar " +
+                     "et_social_slideright et_social_animated et_social_rectangle et_social_sidebar_flip " +
+                     "et_social_sidebar_withcounts et_social_withtotalcount et_social_mobile_on']"));
+        
 
         public IJavaScriptExecutor Javascript { get; set; }
 
+        public void Open1080PBaseline()
+        {
+            //Start test in Applitools to compare to the baseline created by the parameters below.
+            Eyes.Open(Driver, AppName, TestCaseName, Resolution1080P);
+        }
         public void GoToPricingPage()
         {
             //This uses Selenium to navigate to a url of the page below
             Driver.Navigate().GoToUrl("https://www.ultimateqa.com/fake-pricing-page/");
-        }
-        public void GoToPricingPageWithCurrencyUpdate()
-        {
-            //This uses Selenium to navigate to a url of the page below
-            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/fake-pricing-page-currency/");
         }
         [SetUp]
         public void SetupForEverySingleTestMethod()
