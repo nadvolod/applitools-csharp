@@ -12,8 +12,7 @@ namespace Applitools
         {
             //Will open the fake pricing page
             GoToPricingPage();
-            //Will change the first element to a Euro symbol instead of the $ 
-            //and will change the collor to a yellow.
+            //Will update the subheading text and the currency.
             UpdateSubheadingAndCurrency();
             //Starts the applitools test with 4 parameters passed in
             Open1080PBaseline();
