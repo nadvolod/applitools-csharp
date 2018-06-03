@@ -16,6 +16,8 @@ namespace Applitools
         public const string AppName = "sample app 1";
         public string TestCaseName => "Test1";
         public By PriceLocator => By.ClassName("et_pb_sum");
+        public By SubheaderLocator => By.XPath("//*[@class='et_pb_text_inner']/p");
+        
 
         public IJavaScriptExecutor Javascript { get; set; }
 

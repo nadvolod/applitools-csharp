@@ -5,7 +5,6 @@ using OpenQA.Selenium;
 namespace Applitools
 {
     [TestFixture]
-    [Category("MatchLevels")]
     public class IgnoreRegions : BaseClass
     {
         [SetUp]
@@ -37,15 +36,12 @@ namespace Applitools
         {
 
             //Ignore multiple elements with a single Check()
-            Eyes.Check(TestCaseName, Target.Window().
-                Ignore(Driver.FindElement(PriceLocator),
-                    Driver.FindElements(PriceLocator)[1]));
+            Eyes.Check(TestCaseName, Target.Window().Ignore(PriceLocator, SubheaderLocator));
         }
         private void UpdateSubheadingAndCurrency()
         {
-            var subheadingElement = Driver.FindElement(By.XPath("//*[@class='et_pb_text_inner']/p"));
-            var newSubheading = "These are the best plans amongst all companie's in the world";
-
+            var subheadingElement = Driver.FindElement(SubheaderLocator);
+            //Update the subheader text to common visual validation problems
             Javascript.ExecuteScript(
                 $"arguments[0].textContent=" +
                 $"\"These are the best plans amongst all companie's in the world\"", subheadingElement);
@@ -53,5 +49,6 @@ namespace Applitools
             Javascript.ExecuteScript(
                 "document.getElementsByClassName('et_pb_sum')[0].innerText = \"USD 0\";");
         }
+
     }
 }
