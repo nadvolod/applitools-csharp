@@ -15,9 +15,15 @@ namespace Applitools
         public Size Resolution1080P => new Size(1920, 1080);
         public const string AppName = "sample app 1";
         public string TestCaseName => "Test1";
+        public By PriceLocator => By.ClassName("et_pb_sum");
 
         public IJavaScriptExecutor Javascript { get; set; }
 
+        public void Open1080PBaseline()
+        {
+            //Start test in Applitools to compare to the baseline created by the parameters below.
+            Eyes.Open(Driver, AppName, TestCaseName, Resolution1080P);
+        }
         public void GoToPricingPage()
         {
             //This uses Selenium to navigate to a url of the page below
