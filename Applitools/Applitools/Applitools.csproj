@@ -76,7 +76,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClass2.cs" />
     <Compile Include="BaseClass.cs" />
+    <Compile Include="Batches.cs" />
     <Compile Include="IgnoreRegions.cs" />
     <Compile Include="MatchLevels.cs" />
     <Compile Include="BaselineModifications.cs" />

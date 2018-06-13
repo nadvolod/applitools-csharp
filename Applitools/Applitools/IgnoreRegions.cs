@@ -53,7 +53,7 @@ namespace Applitools
             Eyes.Open(Driver, AppName, "StrictRegion", Resolution1080P);
 
             Eyes.MatchLevel = MatchLevel.Layout;
-            //This will add a floating region to the social sharing toolbar
+            //This will add a strict region to all the price options
             Eyes.Check("StrictRegion", Target.Window().Strict(PriceLocator));
         }
 
@@ -62,7 +62,7 @@ namespace Applitools
         {
             Eyes.Open(Driver, AppName, "ContentRegion", Resolution1080P);
 
-            //This will add a floating region to the social sharing toolbar
+            //This will add a content region to all the price options
             Eyes.Check("ContentRegion", Target.Window().Content(PriceLocator));
         }
         [Test]
@@ -70,7 +70,7 @@ namespace Applitools
         {
             Eyes.Open(Driver, AppName, "LayoutRegion", Resolution1080P);
 
-            //This will add a floating region to the social sharing toolbar
+            //This will add a layout region to the section that holds price information
             Eyes.Check("LayoutRegion", Target.Window().Layout(
                 Driver.FindElement(By.XPath("//*[@class='et_pb_module et_pb_pricing " +
                                             "clearfix et_pb_pricing_1 et_pb_pricing_tables_0 " +

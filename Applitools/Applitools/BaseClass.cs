@@ -17,6 +17,7 @@ namespace Applitools
         public string TestCaseName => "Test1";
         public By PriceLocator => By.ClassName("et_pb_sum");
         public By SubheaderLocator => By.XPath("//*[@class='et_pb_text_inner']/p");
+        public static BatchInfo BatchName { get; set; }
 
         public IWebElement SocialSharingToolbar => Driver.FindElement(
             By.XPath("//*[@class='et_social_sidebar_networks et_social_visible_sidebar " +
@@ -25,6 +26,7 @@ namespace Applitools
         
 
         public IJavaScriptExecutor Javascript { get; set; }
+
 
         public void Open1080PBaseline()
         {
