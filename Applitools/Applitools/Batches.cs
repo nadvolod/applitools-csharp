@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using Applitools.Selenium;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -13,27 +14,41 @@ namespace Applitools
     {
        
         [Test]
-        public void CheckWebsiteIn720p()
+        public void HomePageCheck720p()
         {
-            Driver.Navigate().GoToUrl("https://www.ultimateqa.com");
             Eyes.Open(Driver, AppName, "720p", Resolution720P);
-            StitchEntirePageThenCheck();
-        }
-        [Test]
-        public void CheckWebsiteIn1080p()
-        {
-            Driver.Navigate().GoToUrl("https://www.ultimateqa.com");
-            Eyes.Open(Driver, AppName, "1080P", Resolution1080P);
-            StitchEntirePageThenCheck();
-        }
-        [Test]
-        public void CheckWebsiteOnGalaxyS7Resolution()
-        {
-            Driver.Navigate().GoToUrl("https://www.ultimateqa.com");
-            Eyes.Open(Driver, AppName, "GalaxyS7", new Size(360, 560));
-            StitchEntirePageThenCheck();
         }
 
+
+
+        [Test]
+        public void HomePageCheck1080p()
+        {
+            Eyes.Open(Driver, AppName, "1080P", Resolution1080P);
+        }
+        [Test]
+        public void HomePageCheckGalaxyS7Resolution()
+        {
+            Eyes.Open(Driver, AppName, "GalaxyS7", new Size(360, 560));
+        }
+        [Test]
+        public void HomePageCheck1192x969()
+        {
+            Eyes.Open(Driver, AppName, "1192x969", new Size(1192, 969));
+        }
+        //This is an NUnit attribute that forces the method below to be executed after every single test execution.
+        [TearDown]
+        public void TearDownForEverySingleTestMethod()
+        {
+            StitchEntirePageThenCheck();
+
+            //Close your Selenium browser
+            Driver.Quit();
+            //Close applitools eyes so that your test run is saved
+            Eyes.Close();
+            //Quit applitools if it is not already closed
+            Eyes.AbortIfNotClosed();
+        }
         private void StitchEntirePageThenCheck()
         {
             ClosePopUp();
