@@ -18,9 +18,6 @@ namespace Applitools
         {
             Eyes.Open(Driver, AppName, "720p", Resolution720P);
         }
-
-
-
         [Test]
         public void HomePageCheck1080p()
         {
@@ -51,9 +48,14 @@ namespace Applitools
         }
         private void StitchEntirePageThenCheck()
         {
+            var xpathString = "//*[@class='et_pb_module et_pb_posts et_pb_bg_layout_light  et_pb_blog_";
             ClosePopUp();
             Javascript.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
-            Eyes.Check(Target.Window().Fully());
+            Eyes.Check("HomePage",Target.Window().Fully().
+                Floating(SocialSharingToolbar).
+                Layout(By.XPath($"{xpathString}0']/..")).
+                Layout(By.XPath($"{xpathString}1']/..")).
+                Layout(By.XPath($"{xpathString}2']/..")));
         }
 
         private void ClosePopUp()
@@ -69,6 +71,20 @@ namespace Applitools
             {
                 //do nothing
             }
+        }
+
+        [Test]
+        public void GroupingTestSteps()
+        {
+            Eyes.Open(Driver, AppName, "IgnoreRegionUsingBy", Resolution1080P);
+            //Ignoring an element with By
+            Eyes.CheckWindow();
+
+            Driver.Navigate().GoToUrl("https://www.ultimateqa.com");
+            Eyes.CheckWindow();
+
+            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/blog");
+            Eyes.CheckWindow();
         }
     }
 }

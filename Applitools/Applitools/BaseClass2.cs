@@ -18,6 +18,10 @@ namespace Applitools
         public static BatchInfo BatchName { get; set; }
 
         public IJavaScriptExecutor Javascript { get; set; }
+        public IWebElement SocialSharingToolbar => Driver.FindElement(
+            By.XPath("//*[@class='et_social_sidebar_networks et_social_visible_sidebar " +
+                     "et_social_slideright et_social_animated et_social_rectangle et_social_sidebar_flip " +
+                     "et_social_sidebar_withcounts et_social_withtotalcount et_social_mobile_on']"));
         [OneTimeSetUp]
         public void OneTimeSetupBeforeEntireTestClass()
         {

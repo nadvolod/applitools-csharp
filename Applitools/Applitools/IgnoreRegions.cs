@@ -89,5 +89,6 @@ namespace Applitools
                 "document.getElementsByClassName('et_pb_sum')[0].innerText = \"USD 0\";");
         }
 
+
     }
 }
