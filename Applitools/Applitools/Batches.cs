@@ -49,19 +49,21 @@ namespace Applitools
         }
         private void StitchEntirePageThenCheck()
         {
-            var xpathString = "//*[@class='et_pb_module et_pb_posts et_pb_bg_layout_light  et_pb_blog_";
             ClosePopUp();
             ScrollToBottomOfPage();
             ScrollToTopOfPage();
             Eyes.MatchTimeout = TimeSpan.FromSeconds(3);
-            //, 180, 4035,0,17
             Eyes.Check("HomePage",
                 Target.Window().Fully().Floating(SocialSharingToolbar, 180, 4035, 0, 17)
                     .Layout(SocialSharingToolbar)
-                    .Layout(By.XPath($"{xpathString}0']/..")).Layout(By.XPath($"{xpathString}1']/.."))
-                    .Layout(By.XPath($"{xpathString}2']/..")));
-            //Floating(By.XPath("//*[@class='header-content-container center']"), 10, 10, 10, 10));
+                    .Strict(HeaderLocator)
+                    .Strict(StatisticsRowLocator));
         }
+
+        public By StatisticsRowLocator =>
+            By.XPath("//*[@class='et_pb_section et_pb_section_8 et_pb_with_background et_section_regular']");
+
+        public By HeaderLocator => By.XPath("//*[@class='container clearfix et_menu_container']");
 
         private void ScrollToBottomOfPage()
         {
