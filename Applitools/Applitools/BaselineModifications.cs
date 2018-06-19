@@ -9,6 +9,7 @@ namespace Applitools
     public class BaselineModifications : BaseClass
     {
         [Test]
+        [Parallelizable]
         public void FullPageScreenshot()
         {
             Eyes.ForceFullPageScreenshot = true;

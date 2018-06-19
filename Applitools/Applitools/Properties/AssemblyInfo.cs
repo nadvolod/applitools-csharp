@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
+using NUnit.Framework;
 
 [assembly: AssemblyTitle("Applitools")]
 [assembly: AssemblyDescription("")]
@@ -9,6 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: LevelOfParallelism(10)]
 
 [assembly: ComVisible(false)]
 

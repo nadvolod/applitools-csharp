@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using Applitools.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -48,6 +49,7 @@ namespace Applitools
             Eyes.Batch = BatchName;
             Eyes.ForceFullPageScreenshot = true;
             Eyes.StitchMode = StitchModes.CSS;
+            Eyes.MatchLevel = MatchLevel.Layout;
             Eyes.AddProperty("PageName","HomePage");
             //Creating an object that can execute Javascript commands in the browser
             Javascript = (IJavaScriptExecutor) Driver;
@@ -57,7 +59,12 @@ namespace Applitools
         public void GoToHomePage()
         {
             Driver.Navigate().GoToUrl("https://www.ultimateqa.com");
+            WaitForPopUp();
         }
 
+        private void WaitForPopUp()
+        {
+            Thread.Sleep(60000);
+        }
     }
 }

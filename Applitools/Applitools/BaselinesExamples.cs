@@ -5,6 +5,8 @@ namespace Applitools
 {
     [TestFixture]
     [Category("Examples of different baselines")]
+    [Parallelizable]
+
     public class BaselinesExamples : BaseClass
     {
         //These have been moved to BaseClass

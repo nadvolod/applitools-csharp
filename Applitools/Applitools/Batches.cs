@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using Applitools.Selenium;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
@@ -10,6 +11,7 @@ using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 namespace Applitools
 {
     [TestFixture]
+    [Parallelizable]
     public class Batches : BaseClass2
     {
        
@@ -38,7 +40,6 @@ namespace Applitools
         public void TearDownForEverySingleTestMethod()
         {
             StitchEntirePageThenCheck();
-
             //Close your Selenium browser
             Driver.Quit();
             //Close applitools eyes so that your test run is saved
@@ -50,17 +51,38 @@ namespace Applitools
         {
             var xpathString = "//*[@class='et_pb_module et_pb_posts et_pb_bg_layout_light  et_pb_blog_";
             ClosePopUp();
+            ScrollToBottomOfPage();
+            ScrollToTopOfPage();
+            Eyes.MatchTimeout = TimeSpan.FromSeconds(3);
+            //, 180, 4035,0,17
+            Eyes.Check("HomePage",
+                Target.Window().Fully().Floating(SocialSharingToolbar, 180, 4035, 0, 17)
+                    .Layout(SocialSharingToolbar)
+                    .Layout(By.XPath($"{xpathString}0']/..")).Layout(By.XPath($"{xpathString}1']/.."))
+                    .Layout(By.XPath($"{xpathString}2']/..")));
+            //Floating(By.XPath("//*[@class='header-content-container center']"), 10, 10, 10, 10));
+        }
+
+        private void ScrollToBottomOfPage()
+        {
             Javascript.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
-            Eyes.Check("HomePage",Target.Window().Fully().
-                Floating(SocialSharingToolbar).
-                Layout(By.XPath($"{xpathString}0']/..")).
-                Layout(By.XPath($"{xpathString}1']/..")).
-                Layout(By.XPath($"{xpathString}2']/..")));
+            Thread.Sleep(1000);
+        }
+
+        private void ScrollToTopOfPage()
+        {
+            Javascript.ExecuteScript("window.scrollTo(0, -document.body.scrollHeight)");
         }
 
         private void ClosePopUp()
         {
             var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
+            var isClosed = TryToCloseFirstPopUp(wait);
+            if (!isClosed) TryToCloseSecondPopUp(wait);
+        }
+
+        private void TryToCloseSecondPopUp(WebDriverWait wait)
+        {
             try
             {
                 var popUpCloseButton = wait.Until(
@@ -73,11 +95,25 @@ namespace Applitools
             }
         }
 
+        private static bool TryToCloseFirstPopUp(WebDriverWait wait)
+        {
+            try
+            {
+                var popUpCloseButton = wait.Until(
+                    ExpectedConditions.ElementIsVisible(By.XPath("//*[@title='Close']")));
+                popUpCloseButton.Click();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         [Test]
         public void GroupingTestSteps()
         {
             Eyes.Open(Driver, AppName, "IgnoreRegionUsingBy", Resolution1080P);
-            //Ignoring an element with By
             Eyes.CheckWindow();
 
             Driver.Navigate().GoToUrl("https://www.ultimateqa.com");
