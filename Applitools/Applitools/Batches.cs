@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using System.Threading;
 using Applitools.Selenium;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -14,32 +14,10 @@ namespace Applitools
     [Parallelizable]
     public class Batches : BaseClass2
     {
-       
-        [Test]
-        public void HomePageCheck720p()
-        {
-            Eyes.Open(Driver, AppName, "720p", Resolution720P);
-        }
-        [Test]
-        public void HomePageCheck1080p()
-        {
-            Eyes.Open(Driver, AppName, "1080P", Resolution1080P);
-        }
-        [Test]
-        public void HomePageCheckGalaxyS7Resolution()
-        {
-            Eyes.Open(Driver, AppName, "GalaxyS7", new Size(360, 560));
-        }
-        [Test]
-        public void HomePageCheck1192x969()
-        {
-            Eyes.Open(Driver, AppName, "1192x969", new Size(1192, 969));
-        }
         //This is an NUnit attribute that forces the method below to be executed after every single test execution.
         [TearDown]
         public void TearDownForEverySingleTestMethod()
         {
-            StitchEntirePageThenCheck();
             //Close your Selenium browser
             Driver.Quit();
             //Close applitools eyes so that your test run is saved
@@ -47,17 +25,19 @@ namespace Applitools
             //Quit applitools if it is not already closed
             Eyes.AbortIfNotClosed();
         }
-        private void StitchEntirePageThenCheck()
+
+        private void StitchEntirePageThenCheck(string name = "")
         {
             ClosePopUp();
             ScrollToBottomOfPage();
             ScrollToTopOfPage();
-            Eyes.MatchTimeout = TimeSpan.FromSeconds(3);
-            Eyes.Check("HomePage",
-                Target.Window().Fully().Floating(SocialSharingToolbar, 180, 4035, 0, 17)
-                    .Layout(SocialSharingToolbar)
-                    .Strict(HeaderLocator)
-                    .Strict(StatisticsRowLocator));
+            Eyes.Check(name, Target.Window().Fully());
+            //Eyes.MatchTimeout = TimeSpan.FromSeconds(3);
+            //Eyes.Check("HomePage",
+            //    Target.Window().Fully().Floating(SocialSharingToolbar, 180, 4035, 0, 17)
+            //        .Layout(SocialSharingToolbar)
+            //        .Strict(HeaderLocator)
+            //        .Strict(StatisticsRowLocator));
         }
 
         public By StatisticsRowLocator =>
@@ -78,7 +58,7 @@ namespace Applitools
 
         private void ClosePopUp()
         {
-            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(60));
             var isClosed = TryToCloseFirstPopUp(wait);
             if (!isClosed) TryToCloseSecondPopUp(wait);
         }
@@ -87,6 +67,7 @@ namespace Applitools
         {
             try
             {
+                wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
                 var popUpCloseButton = wait.Until(
                     ExpectedConditions.ElementIsVisible(By.XPath("//*[name()='svg']")));
                 popUpCloseButton.Click();
@@ -112,17 +93,60 @@ namespace Applitools
             }
         }
 
+        private void EnableFullPageScreenshots()
+        {
+            //capture the full page for validation
+            Eyes.ForceFullPageScreenshot = true;
+            //stitch the page together using CSS
+            Eyes.StitchMode = StitchModes.CSS;
+        }
+
         [Test]
         public void GroupingTestSteps()
         {
-            Eyes.Open(Driver, AppName, "IgnoreRegionUsingBy", Resolution1080P);
-            Eyes.CheckWindow();
+            Eyes.Open(Driver, AppName, "GroupTestSteps", Resolution1080P);
 
             Driver.Navigate().GoToUrl("https://www.ultimateqa.com");
-            Eyes.CheckWindow();
+            Eyes.CheckWindow("HomePage");
 
             Driver.Navigate().GoToUrl("https://www.ultimateqa.com/blog");
-            Eyes.CheckWindow();
+            Eyes.CheckWindow("Blog");
+        }
+
+        //TIP keep test names short so that they can appear in the Test Results view of ApplitoolsS
+        [Test]
+        public void HomePage1080p()
+        {
+            EnableFullPageScreenshots();
+            Eyes.Open(Driver, AppName, "1080P", Resolution1080P);
+            StitchEntirePageThenCheck(MethodBase.GetCurrentMethod().Name);
+        }
+
+        [Test]
+        public void HomePage1192x969()
+        {
+            EnableFullPageScreenshots();
+
+            Eyes.Open(Driver, AppName, "1192x969", new Size(1192, 969));
+            StitchEntirePageThenCheck(MethodBase.GetCurrentMethod().Name);
+        }
+
+        [Test]
+        public void HomePage720p()
+        {
+            EnableFullPageScreenshots();
+
+            Eyes.Open(Driver, AppName, "720p", Resolution720P);
+            StitchEntirePageThenCheck(MethodBase.GetCurrentMethod().Name);
+        }
+
+        [Test]
+        public void HomePageCheckGalaxyS7Resolution()
+        {
+            EnableFullPageScreenshots();
+
+            Eyes.Open(Driver, AppName, "GalaxyS7", new Size(360, 560));
+            StitchEntirePageThenCheck(MethodBase.GetCurrentMethod().Name);
         }
     }
 }

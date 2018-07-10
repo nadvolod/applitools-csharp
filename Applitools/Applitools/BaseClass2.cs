@@ -47,8 +47,7 @@ namespace Applitools
 
             };
             Eyes.Batch = BatchName;
-            Eyes.ForceFullPageScreenshot = true;
-            Eyes.StitchMode = StitchModes.CSS;
+
             Eyes.MatchLevel = MatchLevel.Layout;
             Eyes.AddProperty("PageName","HomePage");
             //Creating an object that can execute Javascript commands in the browser
