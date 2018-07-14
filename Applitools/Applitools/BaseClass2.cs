@@ -15,8 +15,8 @@ namespace Applitools
         public Size Resolution720P => new Size(1280, 720);
         public Size Resolution1080P => new Size(1920, 1080);
         public const string AppName = "UltimateQA";
-        public string TestCaseName => "Test1";
-        public static BatchInfo BatchName { get; set; }
+        //This is a static property used to set the batch name for Applitools
+        public static BatchInfo MyBatchInfo { get; set; }
 
         public IJavaScriptExecutor Javascript { get; set; }
         public IWebElement SocialSharingToolbar => Driver.FindElement(
@@ -26,7 +26,8 @@ namespace Applitools
         [OneTimeSetUp]
         public void OneTimeSetupBeforeEntireTestClass()
         {
-            BatchName = new BatchInfo("UltimateQA-DifferentResolutions");
+            //This will create a new batch in applitools and store your results there
+            MyBatchInfo = new BatchInfo("UltimateQA-DifferentResolutions");
         }
         public void GoToPricingPage()
         {
@@ -44,16 +45,16 @@ namespace Applitools
             {
                 ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_API_KEY",
                     EnvironmentVariableTarget.User)
-
             };
-            Eyes.Batch = BatchName;
+            //set the Applitools batch information to your batch object with some name
+            Eyes.Batch = MyBatchInfo;
 
             Eyes.MatchLevel = MatchLevel.Layout;
+            //Add a custom property to all of my tests
             Eyes.AddProperty("PageName","HomePage");
             //Creating an object that can execute Javascript commands in the browser
             Javascript = (IJavaScriptExecutor) Driver;
             GoToHomePage();
-
         }
         public void GoToHomePage()
         {

@@ -26,19 +26,7 @@ namespace Applitools
             Eyes.AbortIfNotClosed();
         }
 
-        private void StitchEntirePageThenCheck(string name = "")
-        {
-            ClosePopUp();
-            ScrollToBottomOfPage();
-            ScrollToTopOfPage();
-            Eyes.Check(name, Target.Window().Fully());
-            //Eyes.MatchTimeout = TimeSpan.FromSeconds(3);
-            //Eyes.Check("HomePage",
-            //    Target.Window().Fully().Floating(SocialSharingToolbar, 180, 4035, 0, 17)
-            //        .Layout(SocialSharingToolbar)
-            //        .Strict(HeaderLocator)
-            //        .Strict(StatisticsRowLocator));
-        }
+
 
         public By StatisticsRowLocator =>
             By.XPath("//*[@class='et_pb_section et_pb_section_8 et_pb_with_background et_section_regular']");
@@ -58,7 +46,7 @@ namespace Applitools
 
         private void ClosePopUp()
         {
-            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(60));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
             var isClosed = TryToCloseFirstPopUp(wait);
             if (!isClosed) TryToCloseSecondPopUp(wait);
         }
@@ -126,11 +114,21 @@ namespace Applitools
         public void HomePage1192x969()
         {
             EnableFullPageScreenshots();
-
             Eyes.Open(Driver, AppName, "1192x969", new Size(1192, 969));
             StitchEntirePageThenCheck(MethodBase.GetCurrentMethod().Name);
         }
-
+        private void StitchEntirePageThenCheck(string name = "")
+        {
+            ClosePopUp();
+            ScrollToBottomOfPage();
+            ScrollToTopOfPage();
+            //Eyes.Check(name, Target.Window().Fully());
+            Eyes.MatchTimeout = TimeSpan.FromSeconds(3);
+            Eyes.Check(name,
+                Target.Window().Fully().Floating(SocialSharingToolbar, 180, 4035, 0, 17)
+                    .Layout(SocialSharingToolbar)
+                    .Strict(HeaderLocator));
+        }
         [Test]
         public void HomePage720p()
         {
